@@ -5,6 +5,8 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
+MESSAGE( STATUS "PROJECT_SOURCE_DIR:         " ${PROJECT_SOURCE_DIR} )
+
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
@@ -22,11 +24,14 @@ add_library( # Sets the name of the library.
         )
 
 
-add_library(
-        beast
+add_library( beast
         SHARED
-        Libraries/src/Beast.cpp
-)
+        IMPORTED )
+
+set_target_properties(
+        beast
+        PROPERTIES IMPORTED_LOCATION
+        ${PROJECT_SOURCE_DIR}/Libraries/abis/${ANDROID_ABI}/libbeast.so )
 
 include_directories(Libraries/include/)
 
